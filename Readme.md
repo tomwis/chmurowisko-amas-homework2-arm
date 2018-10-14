@@ -22,11 +22,18 @@
 - role - do czego służy maszyna, np. sql, web, red (redis), mon (mongodb), etc., 3 znaki
 - number - 3 cyfry
 
-### Dyski
+### Dyski - OS
 
 `<vm-name>-osdisk`
 
 - vm-name - nazwa maszyny wirtualnej, do której przypisany jest dysk
+
+### Dyski - pozostałe
+
+`<vm-name>-vmdisk-<number>`
+
+- vm-name - nazwa maszyny wirtualnej, do której przypisany jest dysk
+- number - 3 cyfry
 
 ### Konta składowania danych
 
