@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
 		"templateBaseUrl": { 
-            "value": "https://github.com/tomwis/chmurowisko-amas-homework2-arm/tree/master/arm-templates/"
+            "value": "https://raw.githubusercontent.com/tomwis/chmurowisko-amas-homework2-arm/master/arm-templates/"
 		},
         "serviceShortName": {
             "value": "chmur"
@@ -15,16 +15,16 @@
             "value": "gen"
         },
         "vm1NicNumber": {
-            "value": "1"
+            "value": 1
         },
         "vm2NicNumber": {
-            "value": "1"
+            "value": 1
         },
         "vm1Number": {
-            "value": "1"
+            "value": 1
         },
         "vm2Number": {
-            "value": "2"
+            "value": 2
         },
         "adminUsername": {
             "value": "admin-tom"
@@ -37,9 +37,6 @@
         },
         "subnet1NameSuffix": {
             "value": "test1"
-        },
-        "location": {
-            "value": "[resourceGroup().location]"
         }
     }
 }

@@ -16,20 +16,20 @@
 			"type": "string"
 		},
 		"vm1NicNumber": { 
-			"type": "string", 
-			"defaultValue": "1"
+			"type": "int", 
+			"defaultValue": 1
 		},
 		"vm2NicNumber": { 
-			"type": "string", 
-			"defaultValue": "1"
+			"type": "int", 
+			"defaultValue": 1
 		},
 		"vm1Number": { 
-			"type": "string", 
-			"defaultValue": "1"
+			"type": "int", 
+			"defaultValue": 1
 		},
 		"vm2Number": { 
-			"type": "string", 
-			"defaultValue": "2"
+			"type": "int", 
+			"defaultValue": 2
 		},
 		"adminPassword": { 
 			"type": "string"

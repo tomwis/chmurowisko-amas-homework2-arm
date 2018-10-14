@@ -37,8 +37,8 @@
             }
         },
         "vmNumber": {
-            "type": "string",
-            "defaultValue": "1",
+            "type": "int",
+            "defaultValue": 1,
             "minValue": 1,
             "maxValue": 99,
             "metadata": {
@@ -46,8 +46,8 @@
             }
         },
         "nicNumber": {
-            "type": "string",
-            "defaultValue": "1",
+            "type": "int",
+            "defaultValue": 1,
             "minValue": 1,
             "maxValue": 99,
             "metadata": {
