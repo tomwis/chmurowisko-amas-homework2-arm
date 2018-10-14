@@ -1,26 +1,22 @@
 {
-    "properties": {
-        "displayName": "Virtual networks naming convention",
-        "description": "",
-        "mode": "All",
-        "policyRule": {
-            "if": {
-                "allOf": [
-                    {
-                        "field": "type",
-                        "equals": "Microsoft.Network/virtualNetworks"
-                    },
-                    {
-                        "not": {
-                            "field": "name",
-                            "match": "[a-z0-9]{1,5}-vnet"
-                        }
+    "mode": "all",
+    "policyRule": {
+        "if": {
+            "allOf": [
+                {
+                    "field": "type",
+                    "equals": "Microsoft.Network/virtualNetworks"
+                },
+                {
+                    "not": {
+                        "field": "name",
+                        "match": "[a-z0-9]{1,5}-vnet"
                     }
-                ]
-            },
-            "then": {
-                "effect": "audit"
-            }
+                }
+            ]
+        },
+        "then": {
+            "effect": "audit"
         }
     }
 }

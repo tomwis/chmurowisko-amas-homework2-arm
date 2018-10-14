@@ -28,7 +28,11 @@
 
 ### Konta składowania danych
 
-`<globally-unique-name><number>`
+`<short-service-name><role>st<number>`
+
+- service-short-name - skrócona nazwa usługi, dla której tworzymy konto, 5 znaków
+- role - do czego służy konto, np. dane, obrazki, itp., 5 znaków
+- number - 3 cyfry
 
 ## Część 2 - ARM Template
 
