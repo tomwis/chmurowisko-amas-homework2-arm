@@ -4,16 +4,16 @@
     "parameters": {
         "serviceShortName": {
           "type": "string",
-          "maxLength": 5,
           "minLength": 5,
+          "maxLength": 5,
           "metadata": {
             "description": "Short service prefix for resources."
           }
         },
         "role": {
           "type": "string",
-          "maxLength": 3,
           "minLength": 3,
+          "maxLength": 3,
           "metadata": {
             "description": "Role that Virtual Machine is used for."
           }

@@ -4,8 +4,8 @@
   "parameters": {
     "serviceShortName": {
       "type": "string",
-      "maxLength": 5,
       "minLength": 5,
+      "maxLength": 5,
       "metadata": {
         "description": "Short service prefix for resources."
       }
@@ -13,8 +13,8 @@
     "subnet1NameSuffix": {
       "type": "string",
       "defaultValue": "test1",
-      "maxLength": 2,
-      "minLength": 10,
+      "minLength": 2,
+      "maxLength": 10,
       "metadata": {
         "description": "Subnet 1 Name"
       }
@@ -22,8 +22,8 @@
     "subnet2NameSuffix": {
       "type": "string",
       "defaultValue": "test2",
-      "maxLength": 2,
-      "minLength": 10,
+      "minLength": 2,
+      "maxLength": 10,
       "metadata": {
         "description": "Subnet 2 Name"
       }
