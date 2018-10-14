@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
 		"templateBaseUrl": { 
-            "value": ""
+            "value": "https://github.com/tomwis/chmurowisko-amas-homework2-arm/tree/master/arm-templates/"
 		},
         "serviceShortName": {
             "value": "chmur"
