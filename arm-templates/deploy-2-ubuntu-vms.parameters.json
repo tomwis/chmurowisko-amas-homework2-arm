@@ -1,0 +1,45 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+		"templateBaseUrl": { 
+            "value": ""
+		},
+        "serviceShortName": {
+            "value": "chmur"
+        },
+        "vm1Role": {
+            "value": "gen"
+        },
+        "vm2Role": {
+            "value": "gen"
+        },
+        "vm1NicNumber": {
+            "value": "1"
+        },
+        "vm2NicNumber": {
+            "value": "1"
+        },
+        "vm1Number": {
+            "value": "1"
+        },
+        "vm2Number": {
+            "value": "2"
+        },
+        "adminUsername": {
+            "value": "admin-tom"
+        },
+        "adminPassword": {
+            "value": "Ha5lo,987@#0"
+        },
+        "subnet2NameSuffix": {
+            "value": "test2"
+        },
+        "subnet1NameSuffix": {
+            "value": "test1"
+        },
+        "location": {
+            "value": "[resourceGroup().location]"
+        }
+    }
+}

@@ -1,0 +1,174 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+		"templateBaseUrl": { 
+			"type": "string", 
+			"defaultValue": "https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/postgresql-on-ubuntu/"
+		},
+		"serviceShortName": { 
+			"type": "string", 
+			"defaultValue": "chmur"
+		},
+		"vm1Role": { 
+			"type": "string"
+		},
+		"vm2Role": { 
+			"type": "string"
+		},
+		"vm1NicNumber": { 
+			"type": "string", 
+			"defaultValue": "1"
+		},
+		"vm2NicNumber": { 
+			"type": "string", 
+			"defaultValue": "1"
+		},
+		"vm1Number": { 
+			"type": "string", 
+			"defaultValue": "1"
+		},
+		"vm2Number": { 
+			"type": "string", 
+			"defaultValue": "2"
+		},
+		"adminPassword": { 
+			"type": "string"
+		},
+		"adminUsername": { 
+			"type": "string"
+		},
+		"subnet2NameSuffix": { 
+			"type": "string", 
+			"defaultValue": "test2"
+		},
+		"subnet1NameSuffix": { 
+			"type": "string", 
+			"defaultValue": "test1"
+		},
+		"location": { 
+			"type": "string", 
+			"defaultValue": "[resourceGroup().location]"
+		}
+	},
+    "variables": {
+        "templateBaseUrl": "[parameters('templateBaseUrl')]",
+        "vnetTemplateUrl": "[concat(variables('templateBaseUrl'), 'vnet-2-subnets.json')]",
+        "vmTemplateUrl": "[concat(variables('templateBaseUrl'), 'vm-in-subnet.json')]",
+        "vnetDeploymentName": "vnet-deployment",
+        "vm1DeploymentName": "vm1-deployment",
+        "vm2DeploymentName": "vm2-deployment"
+    },
+    "resources": [
+        {
+            "apiVersion": "2017-05-10",
+            "name": "[variables('vnetDeploymentName')]",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('vnetTemplateUrl')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "serviceShortName": {
+                        "value": "[parameters('serviceShortName')]"
+                    },
+                    "subnet1NameSuffix": {
+                        "value": "[parameters('subnet1NameSuffix')]"
+                    },
+                    "subnet2NameSuffix": {
+                        "value": "[parameters('subnet2NameSuffix')]"
+                    },
+                    "location": {
+                        "value": "[parameters('location')]"
+                    }
+                }
+            }
+        },
+        {
+            "apiVersion": "2017-05-10",
+            "name": "[variables('vm1DeploymentName')]",
+            "type": "Microsoft.Resources/deployments",
+            "dependsOn": [
+              "[variables('vnetDeploymentName')]"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('vmTemplateUrl')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "serviceShortName": {
+                        "value": "[parameters('serviceShortName')]"
+                    },
+                    "role": {
+                        "value": "[parameters('vm1Role')]"
+                    },
+                    "adminUsername": {
+                        "value": "[parameters('adminUsername')]"
+                    },
+                    "adminPassword": {
+                        "value": "[parameters('adminPassword')]"
+                    },
+                    "subnetId": {
+                        "value": "[reference(variables('vnetDeploymentName')).outputs.subnet1Id.value]"
+                    },
+                    "vmNumber": {
+                        "value": "[parameters('vm1Number')]"
+                    },
+                    "nicNumber": {
+                        "value": "[parameters('vm1NicNumber')]"
+                    },
+                    "location": {
+                        "value": "[parameters('location')]"
+                    }
+                }
+            }
+        },
+        {
+            "apiVersion": "2017-05-10",
+            "name": "[variables('vm2DeploymentName')]",
+            "type": "Microsoft.Resources/deployments",
+            "dependsOn": [
+              "[variables('vnetDeploymentName')]"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('vmTemplateUrl')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "serviceShortName": {
+                        "value": "[parameters('serviceShortName')]"
+                    },
+                    "role": {
+                        "value": "[parameters('vm2Role')]"
+                    },
+                    "adminUsername": {
+                        "value": "[parameters('adminUsername')]"
+                    },
+                    "adminPassword": {
+                        "value": "[parameters('adminPassword')]"
+                    },
+                    "subnetId": {
+                        "value": "[reference(variables('vnetDeploymentName')).outputs.subnet2Id.value]"
+                    },
+                    "vmNumber": {
+                        "value": "[parameters('vm2Number')]"
+                    },
+                    "nicNumber": {
+                        "value": "[parameters('vm2NicNumber')]"
+                    },
+                    "location": {
+                        "value": "[parameters('location')]"
+                    }
+                }
+            }
+        }
+    ],
+    "outputs": {
+    }
+}
