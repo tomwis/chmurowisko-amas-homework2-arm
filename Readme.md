@@ -37,13 +37,21 @@
 ## Część 2 - ARM Template
 
 Składowe szablonu:
-- Jedna sieć wirtualna
-- 2 podsieci z NSG
-- W każdej podsieci 1 maszyna wirtualna z Ubuntu 18.04
+- Sieć wirtualna
+- 2 podsieci z ustawionymi network security group
+- W każdej podsieci 1 maszyna wirtualna z Ubuntu 18.04 i publicznym ip
+
+Szablon wykorzystuje linked templates i jest podzielony na 2 części:
+- Tworzenie sieci wirtualnej, nsg i podsieci
+- Tworzenie interfejsu sieciowego, publicznego ip i maszyny wirtualnej w podsieci
+
+Powyższe 2 części są połączone w jednym nadrzędnim szablonie. Drugi szablon, z tworzeniem maszyny wirtualnej, jest wykorzystany 2 razy z innymi parametrami, tak aby w każdej podsieci stworzyć jedną maszynę. 
 
 ## Część 3 - własna rola RBAC
 
 Zbudowałem własną rolę z następującymi uprawnieniami:
 - uruchamianie maszyny
-- zatrzymywanie maszyny
+- zatrzymywanie maszyny (tylko wyłączanie - powerOff lub wyłączanie ze zwalnianiem zasobów obliczeniowych - deallocate)
 - wysyłanie zgłoszenia do supportu przez Portal Azure
+
+## Część 4 - Użycie KeyVault
