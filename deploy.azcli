@@ -1,33 +1,44 @@
 # Część 1
 
-az policy definition create --name 'vm-naming-conv' --display-name 'Virtual machine naming convention' --mode All --metadata 'category=NamingConventions' --rules .\policies\virtual-machine-policy.json
+$policy_name_vm = 'vm-naming-conv'
+$policy_name_vm_disk = 'vm-osdisk-naming-conv'
+$policy_name_vnet = 'vnet-naming-conv'
+$policy_name_rg = 'rg-naming-conv'
+$policy_name_sa = 'sa-naming-conv'
 
-az policy definition create --name 'vm-osdisk-naming-conv' --display-name 'Virtual machine osdisk naming convention' --mode All --metadata 'category=NamingConventions' --rules .\policies\disk-policy.json
+az policy definition create --name $policy_name_vm --display-name 'Virtual machine naming convention' --mode All --metadata 'category=NamingConventions' --rules .\policies\virtual-machine-policy.json
+az policy definition create --name $policy_name_vm_disk --display-name 'Virtual machine osdisk naming convention' --mode All --metadata 'category=NamingConventions' --rules .\policies\disk-policy.json
+az policy definition create --name $policy_name_vnet --display-name 'Virtual network naming convention' --mode All --metadata 'category=NamingConventions' --rules .\policies\virtual-network-policy.json
+az policy definition create --name $policy_name_rg --display-name 'Resource group naming convention' --mode All --metadata 'category=NamingConventions' --rules .\policies\resource-group-policy.json
+az policy definition create --name $policy_name_sa --display-name 'Storage account naming convention' --mode All --metadata 'category=NamingConventions' --rules .\policies\storage-policy.json
 
-az policy definition create --name 'vnet-naming-conv' --display-name 'Virtual network naming convention' --mode All --metadata 'category=NamingConventions' --rules .\policies\virtual-network-policy.json
+az policy assignment create --name 'Virtual machine naming convention - audit' --policy $policy_name_vm
+az policy assignment create --name 'Virtual machine osdisk naming convention - audit' --policy $policy_name_vm_disk
+az policy assignment create --name 'Virtual network naming convention - audit' --policy $policy_name_vnet
+az policy assignment create --name 'Resource group naming convention - audit' --policy $policy_name_rg
+az policy assignment create --name 'Storage account naming convention - audit' --policy $policy_name_sa
 
-az policy definition create --name 'rg-naming-conv' --display-name 'Resource group naming convention' --mode All --metadata 'category=NamingConventions' --rules .\policies\resource-group-policy.json
+# az policy assignment delete --name 'Virtual machine naming convention - audit'
+# az policy assignment delete --name 'Virtual machine osdisk naming convention - audit'
+# az policy assignment delete --name 'Virtual network naming convention - audit'
+# az policy assignment delete --name 'Resource group naming convention - audit'
+# az policy assignment delete --name 'Storage account naming convention - audit'
 
-az policy definition create --name 'sa-naming-conv' --display-name 'Storage account naming convention' --mode All --metadata 'category=NamingConventions' --rules .\policies\storage-policy.json
-
-
-az policy assignment create --name 'Virtual machine naming convention - audit' --policy 'vm-naming-conv'
-
-az policy assignment create --name 'Virtual machine osdisk naming convention - audit' --policy 'vm-osdisk-naming-conv'
-
-az policy assignment create --name 'Virtual network naming convention - audit' --policy 'vnet-naming-conv'
-
-az policy assignment create --name 'Resource group naming convention - audit' --policy 'rg-naming-conv'
-
-az policy assignment create --name 'Storage account naming convention - audit' --policy 'sa-naming-conv'
+# az policy definition delete --name $policy_name_vm
+# az policy definition delete --name $policy_name_vm_disk
+# az policy definition delete --name $policy_name_vnet
+# az policy definition delete --name $policy_name_rg
+# az policy definition delete --name $policy_name_sa
 
 # Część 2
 
-az group create --name "test1-exp-rg-1" --location "northeurope"
+$part2rg = 'chmur-exp-rg-01'
 
-az group deployment create --name "2-ubuntu-vms-in-vnet" --resource-group test1-exp-rg-1 --template-file "arm-templates/deploy-2-ubuntu-vms.json" --parameters "arm-templates/deploy-2-ubuntu-vms.parameters.json"
+az group create --name $part2rg --location "northeurope"
 
-# az group delete --name test1-exp-rg-1
+az group deployment create --name "2-ubuntu-vms-in-vnet" --resource-group $part2rg --template-file "arm-templates/deploy-2-ubuntu-vms.json" --parameters "arm-templates/deploy-2-ubuntu-vms.parameters.json"
+
+# az group delete --name $part2rg
 
 # Część 3
 
@@ -35,13 +46,16 @@ az role definition create --role-definition .\rbac\virtual-machine-basic-operato
 
 # Część 4
 
-az group create --name "te1kv-exp-rg-1" --location "northeurope"
+$part4rg = 'chmur-exp-rg-02'
+$part4kv = 'chmur-keyvault'
 
-az keyvault create --resource-group te1kv-exp-rg-1 --name te1kv-keyvault --location northeurope --enabled-for-template-deployment true
+az group create --name $part4rg --location "northeurope"
 
-az keyvault secret set --vault-name te1kv-keyvault --name vmAdminPassword --value Ha5lo,987@$0
-az keyvault secret set --vault-name te1kv-keyvault --name vmAdminUsername --value admin-tom
+az keyvault create --resource-group $part4rg --name $part4kv --location northeurope --enabled-for-template-deployment true
 
-az group deployment create --name "2-ubuntu-vms-in-vnet" --resource-group te1kv-exp-rg-1 --template-file "arm-templates/deploy-2-ubuntu-vms.json" --parameters "arm-templates/deploy-2-ubuntu-vms-keyvault.parameters.json"
+az keyvault secret set --vault-name $part4kv --name vmAdminPassword --value Ha5lo,987@$0
+az keyvault secret set --vault-name $part4kv --name vmAdminUsername --value admin-tom
 
-# az group delete --name te1kv-exp-rg-1
+az group deployment create --name "2-ubuntu-vms-in-vnet" --resource-group $part4rg --template-file "arm-templates/deploy-2-ubuntu-vms.json" --parameters "arm-templates/deploy-2-ubuntu-vms-keyvault.parameters.json"
+
+# az group delete --name $part4rg
