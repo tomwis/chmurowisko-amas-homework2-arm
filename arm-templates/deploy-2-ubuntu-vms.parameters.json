@@ -26,6 +26,12 @@
         "vm2Number": {
             "value": 2
         },
+        "dnsLabelPrefixVm1": {
+            "value": "chmur-vm001"
+        },
+        "dnsLabelPrefixVm2": {
+            "value": "chmur-vm002"
+        },
         "adminUsername": {
             "value": "admin-tom"
         },
