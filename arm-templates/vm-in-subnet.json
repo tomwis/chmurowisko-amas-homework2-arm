@@ -40,7 +40,7 @@
             "type": "int",
             "defaultValue": 1,
             "minValue": 1,
-            "maxValue": 99,
+            "maxValue": 999,
             "metadata": {
                 "description": "Virtual Machine number."
             }
@@ -136,7 +136,8 @@
                         "version": "latest"
                     },
                     "osDisk": {
-                        "createOption": "FromImage"
+                        "createOption": "FromImage",
+                        "name": "[concat(variables('vmName'), '-osdisk')]"
                     }
                 },
                 "networkProfile": {
