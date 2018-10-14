@@ -8,7 +8,7 @@
             {
                 "not": {
                     "field": "name",
-                    "match": "[a-z0-9]{1,5}-vnet"
+                    "match": "?????-vnet"
                 }
             }
         ]
