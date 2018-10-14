@@ -1,0 +1,47 @@
+# Część 1
+
+az policy definition create --name 'vm-naming-conv' --display-name 'Virtual machine naming convention' --mode All --metadata 'category=NamingConventions' --rules .\policies\virtual-machine-policy.json
+
+az policy definition create --name 'vm-osdisk-naming-conv' --display-name 'Virtual machine osdisk naming convention' --mode All --metadata 'category=NamingConventions' --rules .\policies\disk-policy.json
+
+az policy definition create --name 'vnet-naming-conv' --display-name 'Virtual network naming convention' --mode All --metadata 'category=NamingConventions' --rules .\policies\virtual-network-policy.json
+
+az policy definition create --name 'rg-naming-conv' --display-name 'Resource group naming convention' --mode All --metadata 'category=NamingConventions' --rules .\policies\resource-group-policy.json
+
+az policy definition create --name 'sa-naming-conv' --display-name 'Storage account naming convention' --mode All --metadata 'category=NamingConventions' --rules .\policies\storage-policy.json
+
+
+az policy assignment create --name 'Virtual machine naming convention - audit' --policy 'vm-naming-conv'
+
+az policy assignment create --name 'Virtual machine osdisk naming convention - audit' --policy 'vm-osdisk-naming-conv'
+
+az policy assignment create --name 'Virtual network naming convention - audit' --policy 'vnet-naming-conv'
+
+az policy assignment create --name 'Resource group naming convention - audit' --policy 'rg-naming-conv'
+
+az policy assignment create --name 'Storage account naming convention - audit' --policy 'sa-naming-conv'
+
+# Część 2
+
+az group create --name "test1-exp-rg-1" --location "northeurope"
+
+az group deployment create --name "2-ubuntu-vms-in-vnet" --resource-group test1-exp-rg-1 --template-file "arm-templates/deploy-2-ubuntu-vms.json" --parameters "arm-templates/deploy-2-ubuntu-vms.parameters.json"
+
+# az group delete --name test1-exp-rg-1
+
+# Część 3
+
+az role definition create --role-definition .\rbac\virtual-machine-basic-operator.json
+
+# Część 4
+
+az group create --name "te1kv-exp-rg-1" --location "northeurope"
+
+az keyvault create --resource-group te1kv-exp-rg-1 --name te1kv-keyvault --location northeurope --enabled-for-template-deployment true
+
+az keyvault secret set --vault-name te1kv-keyvault --name vmAdminPassword --value Ha5lo,987@$0
+az keyvault secret set --vault-name te1kv-keyvault --name vmAdminUsername --value admin-tom
+
+az group deployment create --name "2-ubuntu-vms-in-vnet" --resource-group te1kv-exp-rg-1 --template-file "arm-templates/deploy-2-ubuntu-vms.json" --parameters "arm-templates/deploy-2-ubuntu-vms-keyvault.parameters.json"
+
+# az group delete --name te1kv-exp-rg-1

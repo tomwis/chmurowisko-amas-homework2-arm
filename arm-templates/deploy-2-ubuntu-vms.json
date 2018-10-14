@@ -31,11 +31,11 @@
 			"type": "int", 
 			"defaultValue": 2
 		},
-		"adminPassword": { 
-			"type": "string"
-		},
 		"adminUsername": { 
 			"type": "string"
+		},
+		"adminPassword": { 
+			"type": "securestring"
 		},
 		"subnet2NameSuffix": { 
 			"type": "string", 

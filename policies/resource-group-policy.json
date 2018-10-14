@@ -1,22 +1,19 @@
 {
-    "mode": "all",
-    "policyRule": {
-        "if": {
-            "allOf": [
-                {
-                    "field": "type",
-                    "equals": "Microsoft.Resources/subscriptions/resourceGroups"
-                },
-                {
-                    "not": {
-                        "field": "name",
-                        "match": "[a-z0-9]{1,5}-[prod|staging|test|dev|exp]-rg-[0-9]{1,2}"
-                    }
+    "if": {
+        "allOf": [
+            {
+                "field": "type",
+                "equals": "Microsoft.Resources/subscriptions/resourceGroups"
+            },
+            {
+                "not": {
+                    "field": "name",
+                    "match": "[a-z0-9]{1,5}-[prod|staging|test|dev|exp]-rg-[0-9]{1,2}"
                 }
-            ]
-        },
-        "then": {
-            "effect": "audit"
-        }
+            }
+        ]
+    },
+    "then": {
+        "effect": "audit"
     }
 }

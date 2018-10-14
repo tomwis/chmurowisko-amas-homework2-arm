@@ -1,0 +1,52 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+		"templateBaseUrl": { 
+            "value": "https://raw.githubusercontent.com/tomwis/chmurowisko-amas-homework2-arm/master/arm-templates/"
+		},
+        "serviceShortName": {
+            "value": "chmur"
+        },
+        "vm1Role": {
+            "value": "gen"
+        },
+        "vm2Role": {
+            "value": "gen"
+        },
+        "vm1NicNumber": {
+            "value": 1
+        },
+        "vm2NicNumber": {
+            "value": 1
+        },
+        "vm1Number": {
+            "value": 1
+        },
+        "vm2Number": {
+            "value": 2
+        },
+        "adminUsername": {
+            "reference": {
+              "keyVault": {
+                "id": "/subscriptions/<subscription-id>/resourceGroups/<resource-group-name>/providers/Microsoft.KeyVault/vaults/<vault-name>"
+              },
+              "secretName": "vmAdminUsername"
+            }
+        },
+        "adminPassword": {
+            "reference": {
+              "keyVault": {
+                "id": "/subscriptions/<subscription-id>/resourceGroups/<resource-group-name>/providers/Microsoft.KeyVault/vaults/<vault-name>"
+              },
+              "secretName": "vmAdminPassword"
+            }
+        },
+        "subnet2NameSuffix": {
+            "value": "test2"
+        },
+        "subnet1NameSuffix": {
+            "value": "test1"
+        }
+    }
+}
