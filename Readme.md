@@ -5,7 +5,7 @@
 `<service-short-name>-<environment>-rg-<number>`
 
 - service-short-name - skrócona nazwa usługi, dla której tworzymy grupę, 5 znaków
-- environment - środowisko, możliwe wartości: prod, staging, test, dev, exp (experimental)
+- environment - środowisko (prod, staging, test, dev, exp (experimental)), 3 znaki (3 pierwsze litery lub skrót)
 - number - numer grupy, w razie gdybyśmy mieli więcej niż jedną instancję danego środowiska, 2 cyfry
 
 ### Sieci wirtualne
