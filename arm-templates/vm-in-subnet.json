@@ -36,6 +36,12 @@
                 "description": "Subnet id for the Virtual Machine."
             }
         },
+        "dnsLabelPrefix": {
+            "type": "string",
+            "metadata": {
+                "description": "Dns name prefix for the Virtual Machine."
+            }
+        },
         "vmNumber": {
             "type": "int",
             "defaultValue": 1,
@@ -70,8 +76,7 @@
         "nicName": "[concat(variables('vmName'), '-nic', parameters('nicNumber'))]",
         "publicIPAddressName": "[concat(variables('vmName'), '-pip')]",
         "publicIPAddressType": "Dynamic",
-        "vmName": "[concat(parameters('serviceShortName'), '-', parameters('role'), '-vm', parameters('vmNumber'))]",
-        "dnsLabelPrefix": "[variables('vmName')]"
+        "vmName": "[concat(parameters('serviceShortName'), '-', parameters('role'), '-vm', padLeft(parameters('vmNumber'), 3, '0'))]"
     },
     "resources": [
         {
@@ -82,7 +87,7 @@
             "properties": {
                 "publicIPAllocationMethod": "[variables('publicIPAddressType')]",
                 "dnsSettings": {
-                    "domainNameLabel": "[variables('dnsLabelPrefix')]"
+                    "domainNameLabel": "[parameters('dnsLabelPrefix')]"
                 }
             }
         },
