@@ -10,6 +10,12 @@
                     "field": "name",
                     "match": "?????-???-vm###-vmdisk-###"
                 }
+            },
+            {
+                "not": {
+                    "field": "name",
+                    "match": "?????-???-vm###-osdisk"
+                }
             }
         ]
     },
